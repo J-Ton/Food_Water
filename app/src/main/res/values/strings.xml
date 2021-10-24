@@ -1,0 +1,82 @@
+<resources>
+    <string name="app_name">Food and Water</string>
+    <string name="pref_notification_message_value">Nawodnij swój organizm</string>
+    <string name="add_info_text">Podaj swoje dane i my wyliczymy idealną ilość wody i kalorii dla Ciebie</string>
+    <string name="str_continue">Dalej</string>
+
+    <string name="age_hint">Wiek</string>
+    <string name="weight_hint">Waga [kg]</string>
+    <string name="growth_hint">Wzrost [cm]</string>
+    <string name="worktime_hint">Fiz. aktywność [h]</string>
+    <string name="custom_water_hint">Liczba(woda)</string>
+    <string name="custom_eat_hint">Liczba(jedzenie)</string>
+    <string name="switch_Custom"> </string>
+    <string name="text_Custom">Swoja liczba wody/jedzenia</string>
+
+
+    <string name="edit_info_text">Dane Użytkownika</string>
+    <string name="ok">Zapisz</string>
+
+    <string name="notif_setting_header">Notification Settings</string>
+    <string name="notif_messsage_hint">Napis</string>
+    <string name="notif_tone_hint">Dźwięk powiadomienia</string>
+    <string name="enter_custom_input">Podaj ilość</string>
+    <string name="weather">Pogoda:</string>
+    <string name="phisicalActivity">Aktywnosc Fizyczna:</string>
+    <string name="weight">Masa:</string>
+    <string name="height">Wzrost:</string>
+    <string name="age">Wiek:</string>
+
+
+    <string-array name="activity">
+        <item>Minimalna aktywnośc fizyczna</item>
+        <item>Aktywność 2 razy w tygodniu</item>
+        <item>Aktywność 4 razy w tygodniu</item>
+        <item>Praca fizyczna</item>
+        <item>Intensywne treningi (3-5 w tygodniu)</item>
+        <item>Lekka aktywność + praca</item>
+        <item>Codzienna aktywność fizyczna</item>
+        <item>Intensywne treningi + praca</item>
+        <item>Codzienna aktywność + praca</item>
+    </string-array>
+
+    <string-array name="czas">
+        <item>Tydzień</item>
+        <item>2 tygodnie</item>
+        <item>Miesiąc</item>
+        <item>3 miesiące</item>
+        <item>Rok</item>
+    </string-array>
+
+    <string-array name="factsWater">
+        <item>Kości ludzkie składają się w 31% z wody</item>
+        <item>NASA odkryła wodę w formie lodu na księżycu</item>
+        <item>Zdrowa osoba jest w stanie wypić nawet 11 litrów wody dziennie</item>
+        <item>Picie zbyt dużej ilości wody może jednak spowodować zatrucie</item>
+        <item>Już ubytek 2 proc. wody może powodować zawroty głowy, nudności, problemy z koncentracją</item>
+        <item>Osoby, które podczas treningu nie spożywają wody, mają znacznie wyższy poziom kortyzolu oraz niższy testosteronu</item>
+        <item>Wodę należy popijać niewielkimi łykami, co kilka chwili</item>
+        <item>Woda dobrze wpływa na serce</item>
+        <item>Picie wody pomaga zapobiegać próchnicy</item>
+        <item>Picie wody wspiera zwalczanie infekcji</item>
+        <item>Owoce, mleko, napoje mleczne, koktajle i zupy, to zawartość wody z rzędu około 85%</item>
+        <item>Straty 5% lub więcej masy ciała podczas aktywności fizycznej mogą zmniejszyć zdolność do pracy aż o około 30%</item>
+    </string-array>
+
+    <string-array name="factsFood">
+    <item>Jabłka są bardziej skuteczne niż kawa przy pobudzaniu się rano</item>
+    <item>Niskie spożycie omega-3 wiąże się z niższym IQ, depresją i chorobami serca</item>
+    <item>Białko, które znajduje się w mięsie, produktach mlecznych buduje mięśnie i naprawia uszkodzenia w Twoim ciele</item>
+    <item>Czekolada jest skutecznym środkiem zapobiegającym ciągłemu kaszleniu</item>
+    <item>Miód nigdy się nie psuje. Miód sprzed ponad 5 tysięcy lat został znaleziony w stanie jadalnym</item>
+    <item>Sól morska jest nie mniej lub bardziej zdrowa niż zwykła sól</item>
+    <item>Jedzenie dużego śniadania sprzyja gubieniu kilogramów</item>
+    <item>Pieczywo chrupkie zawiera w 100 gramach więcej kalorii niż inne rodzaje chleba</item>
+    <item>Spożywanie cebuli zmniejsza ryzyko występowania raka żołądka</item>
+    <item>Ostra papryka obniża poziom insuliny w organizmie</item>
+    <item>Jedzenie surowego szpinaku poprawia humor</item>
+    <item>Cynamon poprawia apetyt, przyspiesza trawienie, zapobiega wzdęciom</item>
+    <item>Pistacje zmniejszają ryzyko chorób serca oraz cukrzycy</item>
+    <item>Gotowanie warzyw na parze w kuchence mikrofalowej z filiżanką wody jest bardziej korzystne niż inne techniki gotowania</item>
+    </string-array>
+</resources>
