@@ -6,10 +6,8 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-
 import com.example.foodwater.recievers.BootReceiver;
 import com.example.foodwater.recievers.NotifierReceiver;
-
 import java.util.concurrent.TimeUnit;
 
 public final class AlarmHelper {
