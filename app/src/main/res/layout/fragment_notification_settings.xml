@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainNotificationLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/Blue"
+    android:paddingBottom="8dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintTop_toBottomOf="parent">
+
+    <TextView
+        android:id="@+id/LabelNotification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="Powiadomienia"
+        android:textColor="@color/colorWhite"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@+id/buttonNotificationOK"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buttonNotificationOK"
+        style="@android:style/Widget.Material.Button.Borderless"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:drawableEnd="@drawable/ic_checked"
+        android:text="@string/ok"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/ok" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/etNotificationText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:theme="@style/TextInputLayoutAppearance"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switchNotification">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@null"
+            android:hint="@string/notif_messsage_hint"
+            android:inputType="text"
+            android:paddingStart="10dp"
+            android:paddingBottom="10dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/etRingtone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:theme="@style/TextInputLayoutAppearance"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etNotificationText">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@null"
+            android:clickable="true"
+            android:focusable="false"
+            android:hint="@string/notif_tone_hint"
+            android:inputType="text"
+            android:paddingStart="10dp"
+            android:paddingBottom="10dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etRingtone"
+        tools:text="@string/notif_freq_hint" />
+
+    <co.ceryle.radiorealbutton.RadioRealButtonGroup
+        android:id="@+id/radioTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:rrbg_animateDrawables_enter="overshoot"
+        app:rrbg_animateTexts_enter="overshoot"
+        app:rrbg_dividerColor="@color/colorBlack"
+        app:rrbg_dividerSize="1dp"
+        app:rrbg_radius="6dp"
+        app:rrbg_selectorColor="@android:color/black"
+        app:rrbg_selectorSize="6dp">
+
+        <co.ceryle.radiorealbutton.RadioRealButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:rrb_drawable="@drawable/ic_30_minutes"
+            app:rrb_drawableGravity="left"
+            app:rrb_drawableHeight="38dp"
+            app:rrb_drawablePadding="8dp"
+            app:rrb_drawableWidth="30dp"
+            app:rrb_ripple="true"
+            app:rrb_rippleColor="@color/colorBlack"
+            app:rrb_text="30 Mins"
+            app:rrb_textColor="@color/colorBlack" />
+
+        <co.ceryle.radiorealbutton.RadioRealButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:rrb_drawable="@drawable/ic_45_minutes"
+            app:rrb_drawableGravity="left"
+            app:rrb_drawableHeight="30dp"
+            app:rrb_drawablePadding="8dp"
+            app:rrb_drawableWidth="30dp"
+            app:rrb_ripple="true"
+            app:rrb_rippleColor="@color/colorBlack"
+            app:rrb_text="45 Mins"
+            app:rrb_textColor="@color/colorBlack" />
+
+        <co.ceryle.radiorealbutton.RadioRealButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:rrb_drawable="@drawable/ic_60_minutes"
+            app:rrb_drawableGravity="left"
+            app:rrb_drawableHeight="30dp"
+            app:rrb_drawablePadding="8dp"
+            app:rrb_drawableWidth="30dp"
+            app:rrb_ripple="true"
+            app:rrb_rippleColor="@color/colorBlack"
+            app:rrb_text="60 Mins"
+            app:rrb_textColor="@color/colorBlack" />
+    </co.ceryle.radiorealbutton.RadioRealButtonGroup>
+
+    <Switch
+        android:id="@+id/switchNotification"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="Włącz przypomnienia"
+        android:textColor="@color/colorWhite"
+        android:textOff="off"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonNotificationOK" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

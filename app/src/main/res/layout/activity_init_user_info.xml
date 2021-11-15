@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/init_user_info_parent_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/splash_bg_gradiant"
+    tools:context="com.example.zdrowe_zycie.InitUserInfoActivity">
+
+    <Button
+
+        android:id="@+id/btnContinue"
+        style="@android:style/Widget.Material.Button.Borderless"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:drawableEnd="@drawable/ic_arrow_forward_black_24dp"
+        android:focusableInTouchMode="false"
+        android:text="@string/str_continue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/add_info_text"
+        android:textAlignment="center"
+        android:textColor="@color/colorBlack"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnContinue" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3">
+
+        <co.ceryle.radiorealbutton.RadioRealButtonGroup
+            android:id="@+id/radioGroup_gender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:rrbg_animateDrawables_enter="overshoot"
+            app:rrbg_animateTexts_enter="overshoot"
+            app:rrbg_dividerColor="@color/colorBlack"
+            app:rrbg_dividerSize="1dp"
+            app:rrbg_radius="6dp"
+            app:rrbg_selectorColor="@android:color/black"
+            app:rrbg_selectorSize="6dp">
+
+            <co.ceryle.radiorealbutton.RadioRealButton
+                android:id="@+id/rbMan1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:rrb_drawable="@drawable/ic_male"
+                app:rrb_drawableGravity="top"
+                app:rrb_drawableHeight="30dp"
+                app:rrb_drawablePadding="-5dp"
+                app:rrb_drawableWidth="40dp"
+                app:rrb_ripple="false"
+                app:rrb_rippleColor="@color/colorBlack"
+                app:rrb_text="Mężczyzna"
+                app:rrb_textColor="@color/colorBlack"
+                app:rrb_textGravity="center" />
+
+            <co.ceryle.radiorealbutton.RadioRealButton
+                android:id="@+id/rbWoman1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:rrb_drawable="@drawable/ic_female"
+                app:rrb_drawableGravity="top"
+                app:rrb_drawableHeight="30dp"
+                app:rrb_drawablePadding="-5dp"
+                app:rrb_drawableWidth="40dp"
+                app:rrb_ripple="false"
+                app:rrb_rippleColor="@color/colorBlack"
+                app:rrb_text="Kobieta"
+                app:rrb_textColor="@color/colorBlack"
+                app:rrb_textGravity="center"
+                tools:layout_editor_absoluteX="190dp" />
+
+        </co.ceryle.radiorealbutton.RadioRealButtonGroup>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etWeight"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:focusable="auto"
+            android:focusableInTouchMode="false"
+            android:theme="@style/TextInputLayoutAppearance"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/radioGroup_gender">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@null"
+                android:hint="@string/weight_hint"
+                android:inputType="numberSigned"
+                android:maxLength="3"
+                android:paddingStart="10dp"
+                android:paddingBottom="10dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etAge"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:focusable="auto"
+            android:focusableInTouchMode="false"
+            android:nextFocusDown="@id/physicalActivity_init"
+            android:theme="@style/TextInputLayoutAppearance"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etGrowth">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@null"
+                android:hint="@string/age_hint"
+                android:inputType="numberSigned"
+                android:maxLength="3"
+                android:paddingStart="10dp"
+                android:paddingBottom="10dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etGrowth"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:focusable="auto"
+            android:focusableInTouchMode="false"
+            android:theme="@style/TextInputLayoutAppearance"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etWeight">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@null"
+                android:hint="@string/growth_hint"
+                android:inputType="numberSigned"
+                android:maxLength="3"
+                android:paddingStart="10dp"
+                android:paddingBottom="10dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Spinner
+            android:id="@+id/physicalActivity_init"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/textinput_bg"
+            android:entries="@array/activity"
+            android:nextFocusDown="@id/btnContinue"
+            android:popupElevation="18dp"
+            app:layout_constraintBottom_toTopOf="@id/physicalActivity_init"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etAge" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <co.ceryle.radiorealbutton.RadioRealButtonGroup
+        android:id="@+id/radioGroup_weather"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        app:rrbg_animateDrawables_enter="overshoot"
+        app:rrbg_animateTexts_enter="overshoot"
+        app:rrbg_dividerColor="@color/colorBlack"
+        app:rrbg_dividerSize="1dp"
+        app:rrbg_radius="6dp"
+        app:rrbg_selectorColor="@android:color/black"
+        app:rrbg_selectorSize="6dp">
+
+        <co.ceryle.radiorealbutton.RadioRealButton
+            android:id="@+id/rb_cold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:rrb_drawable="@drawable/ic_cold"
+            app:rrb_drawableGravity="top"
+            app:rrb_drawableHeight="30dp"
+            app:rrb_drawablePadding="-5dp"
+            app:rrb_drawableWidth="40dp"
+            app:rrb_ripple="false"
+            app:rrb_rippleColor="@color/colorBlack"
+            app:rrb_text="Zimno"
+            app:rrb_textColor="@color/colorBlack"
+            app:rrb_textGravity="center" />
+
+        <co.ceryle.radiorealbutton.RadioRealButton
+            android:id="@+id/rb_hot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:rrb_drawable="@drawable/ic_hot"
+            app:rrb_drawableGravity="top"
+            app:rrb_drawableHeight="30dp"
+            app:rrb_drawablePadding="-5dp"
+            app:rrb_drawableWidth="40dp"
+            app:rrb_ripple="false"
+            app:rrb_rippleColor="@color/colorBlack"
+            app:rrb_text="Gorąco"
+            app:rrb_textColor="@color/colorBlack"
+            app:rrb_textGravity="center"
+            tools:layout_editor_absoluteX="190dp" />
+
+    </co.ceryle.radiorealbutton.RadioRealButtonGroup>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

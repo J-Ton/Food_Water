@@ -2,6 +2,7 @@ package com.example.foodwater;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -13,21 +14,30 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
+
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.example.foodwater.fragments.FragmentNotificationSettings;
+import com.example.foodwater.fragments.FragmentUserSettings;
+//import com.example.foodwater.helpers.AlarmHelper;
+import com.example.foodwater.helpers.AlarmHelper;
 import com.example.foodwater.helpers.SqliteHelper;
-import com.example.foodwater.R;
+import com.example.foodwater.utils.AppUtils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
+
 import java.util.Random;
+
 import co.ceryle.radiorealbutton.RadioRealButton;
 import co.ceryle.radiorealbutton.RadioRealButtonGroup;
 import params.com.stepprogressview.StepProgressView;
@@ -45,9 +55,10 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences sharedPref;
     int totalIntake, inTook;
     int selectedOption = 0;
-    private SqliteHelper sqliteHelper;
+    String dateNow;
     boolean flagEat = false;
-
+    boolean notificStatus;
+    private SqliteHelper sqliteHelper;
     private boolean doubleBackToExitPressedOnce = false;
     private TypedValue outValue;
 
@@ -80,18 +91,56 @@ public class MainActivity extends AppCompatActivity {
         iconCustom = findViewById(R.id.Custom);
         fabAdd = findViewById(R.id.fabAdd);
         res = getResources();
+        dateNow = AppUtils.getCurrentDate();
         facts_view = findViewById(R.id.Facts_view);
 
+        sharedPref = getSharedPreferences(AppUtils.USERS_SHARED_PREF, AppUtils.PRIVATE_MODE);
         sqliteHelper = new SqliteHelper(this);
         cursorFactsEat = sqliteHelper.getFacts(true);
         cursorFactsWater = sqliteHelper.getFacts(false);
         setRandomFact(cursorFactsEat);
         setRandomFact(cursorFactsWater);
+        if (flagEat) {
+            totalIntake = sharedPref.getInt(AppUtils.TOTAL_INTAKE_KEY_EAT, 1);
+        } else {
+            totalIntake = sharedPref.getInt(AppUtils.TOTAL_INTAKE_KEY_WATER, 1);
+        }
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+
+        ImageButton ButtonUserSettings = findViewById(R.id.ButtonUserSettings);
+        ButtonUserSettings.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                FragmentUserSettings Fragment = new FragmentUserSettings((Context) MainActivity.this);
+                Bundle args = new Bundle();
+                args.putBoolean("flagEat", flagEat);
+                Fragment.setArguments(args);
+                Fragment.show(MainActivity.this.getSupportFragmentManager(), Fragment.getTag());
+            }
+        });
+
+        ImageButton ButtonNotificationSettings = findViewById(R.id.ButtonNotificationSettings);
+        ButtonNotificationSettings.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                FragmentNotificationSettings Fragment = new FragmentNotificationSettings(MainActivity.this);
+                Bundle args = new Bundle();
+                args.putBoolean("flagEat", flagEat);
+                Fragment.setArguments(args);
+                Fragment.show(MainActivity.this.getSupportFragmentManager(), Fragment.getTag());
+            }
+        });
+
+        ImageButton ButtonStatictic = findViewById(R.id.buttonStatistic);
+        ButtonStatictic.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent myIntent = new Intent(MainActivity.this, StatsActivity.class);
+                myIntent.putExtra("key", flagEat);
+                MainActivity.this.startActivity(myIntent);
+            }
+        });
 
         RadioRealButtonGroup ChoseActivity = findViewById(R.id.radioChose);
         ChoseActivity.setPosition(0);
@@ -102,17 +151,20 @@ public class MainActivity extends AppCompatActivity {
                     case 0:
                         flagEat = false;
                         SetWaterView();
+                        updateValues(flagEat);
                         break;
                     case 1:
                         flagEat = true;
                         SetEatView();
+                        updateValues(flagEat);
                         break;
                     default:
                         break;
-
                 }
             }
         });
+
+        updateValues(flagEat);
 
         outValue = new TypedValue();
         this.getApplicationContext().getTheme().resolveAttribute(
@@ -121,17 +173,32 @@ public class MainActivity extends AppCompatActivity {
                 true
         );
 
+        notificStatus = sharedPref.getBoolean(AppUtils.NOTIFICATION_STATUS_KEY, true);
+        AlarmHelper alarm = new AlarmHelper();
+        if (!alarm.checkAlarm(this) && notificStatus) {
+            alarm.setAlarm(
+                    this,
+                    Long.valueOf(sharedPref.getInt(AppUtils.NOTIFICATION_FREQUENCY_KEY, 30))
+            );
+        }
 
+        sqliteHelper.addAll(dateNow, 0, this.totalIntake, true);
+        sqliteHelper.addAll(dateNow, 0, this.totalIntake, false);
+        sqliteHelper.updateTotalIntake(dateNow, sharedPref.getInt(AppUtils.TOTAL_INTAKE_KEY_EAT, 1), true);
+        sqliteHelper.updateTotalIntake(dateNow, sharedPref.getInt(AppUtils.TOTAL_INTAKE_KEY_WATER, 1), false);
 
         fabAdd.setOnClickListener(new View.OnClickListener() {
             public final void onClick(View it) {
                 if (selectedOption != 0) {
-//                    inTook += selectedOption;
-//                    if (inTook * 100 / totalIntake <= 140) {
-//                            setWaterLevel(inTook, totalIntake);
-//                    } else {
-//                        Toast.makeText(MainActivity.this, "Co za duzo to niezdrowo!", Toast.LENGTH_LONG).show();
-//                    }
+                    if (inTook * 100 / totalIntake <= 140) {
+                        if (sqliteHelper.addIntake(dateNow, selectedOption, flagEat) > 0) {
+                            inTook += selectedOption;
+                            setWaterLevel(inTook, totalIntake);
+                        }
+                    } else {
+                        Toast.makeText(MainActivity.this, "Co za duzo to niezdrowo!", Toast.LENGTH_LONG).show();
+
+                    }
                     selectedOption = 0;
                     tvCustom.setText("Custom");
                     setIconBackground(0);
@@ -146,69 +213,57 @@ public class MainActivity extends AppCompatActivity {
 
         icon1.setOnClickListener(new View.OnClickListener() {
             public final void onClick(View it) {
-
-
                 if (flagEat) {
                     selectedOption = 50;
                 } else {
                     selectedOption = 100;
                 }
                 setIconBackground(1);
-
             }
         });
 
         icon2.setOnClickListener(new View.OnClickListener() {
             public final void onClick(View it) {
-
                 selectedOption = 150;
                 setIconBackground(2);
-
             }
         });
 
         icon3.setOnClickListener(new View.OnClickListener() {
             public final void onClick(View it) {
-
                 if (flagEat) {
                     selectedOption = 200;
                 } else {
                     selectedOption = 300;
                 }
                 setIconBackground(3);
-
             }
         });
 
         icon4.setOnClickListener(new View.OnClickListener() {
             public final void onClick(View it) {
-
                 if (flagEat) {
                     selectedOption = 300;
                 } else {
                     selectedOption = 500;
                 }
                 setIconBackground(4);
-
             }
         });
 
         icon5.setOnClickListener(new View.OnClickListener() {
             public final void onClick(View it) {
-
                 if (flagEat) {
                     selectedOption = 500;
                 } else {
                     selectedOption = 1000;
                 }
                 setIconBackground(5);
-
             }
         });
 
         iconCustom.setOnClickListener(new View.OnClickListener() {
             public final void onClick(View it) {
-
                 LayoutInflater li = LayoutInflater.from((Context) MainActivity.this);
                 View promptsView = li.inflate(R.layout.custom_input_dialog, (ViewGroup) null);
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder((Context) MainActivity.this);
@@ -230,10 +285,20 @@ public class MainActivity extends AppCompatActivity {
                 }));
                 AlertDialog alertDialog = alertDialogBuilder.create();
                 alertDialog.show();
-
                 setIconBackground(6);
             }
         });
+    }
+
+
+    public void updateValues(boolean flagEat) {
+        if (flagEat) {
+            totalIntake = sharedPref.getInt(AppUtils.TOTAL_INTAKE_KEY_EAT, 1);
+        } else {
+            totalIntake = sharedPref.getInt(AppUtils.TOTAL_INTAKE_KEY_WATER, 1);
+        }
+        inTook = sqliteHelper.getIntake(dateNow, flagEat);
+        setWaterLevel(inTook, totalIntake);
     }
 
     private void SetEatView() {
@@ -286,7 +351,7 @@ public class MainActivity extends AppCompatActivity {
         setRandomFact(cursorFactsWater);
     }
 
-    private final void setWaterLevel(int inTook, int totalIntake) {
+    private void setWaterLevel(int inTook, int totalIntake) {
         TextView tvIntook = findViewById(R.id.tvIntook);
         TextView tvTotalIntake = findViewById(R.id.tvTotalIntake);
         YoYo.with(Techniques.SlideInDown).duration(500L).playOn(tvIntook);
@@ -308,22 +373,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void onBackPressed() {
-        if (doubleBackToExitPressedOnce) {
-            super.onBackPressed();
-            return;
-        }
-
-        this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(MainActivity.this, "Please click BACK again to exit", Toast.LENGTH_LONG).show();
-        new Handler().postDelayed(new Runnable() {
-            public final void run() {
-                MainActivity.this.doubleBackToExitPressedOnce = false;
-            }
-        }, 1000L);
-    }
-
-    public void setRandomFact(Cursor cursor) {
+    private void setRandomFact(Cursor cursor) {
         int count;
         if (cursor.moveToFirst()) {
             count = cursor.getCount();
@@ -368,5 +418,21 @@ public class MainActivity extends AppCompatActivity {
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(MainActivity.this, "Please click BACK again to exit", Toast.LENGTH_LONG).show();
+        new Handler().postDelayed(new Runnable() {
+            public final void run() {
+                MainActivity.this.doubleBackToExitPressedOnce = false;
+            }
+        }, 1000L);
     }
 }
